@@ -1,0 +1,95 @@
+@use "sass:math";
+@use '../../../src/styles/variables' as *;
+
+.button {
+  display: flex;
+  border: none;
+
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  min-height: 48px;
+  min-width: 172px;
+
+  font-family: $fontFamily;
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer !important;
+  transition: all 0.3s ease 0s;
+
+  border-radius: 24px;
+
+  z-index: 99;
+
+
+
+  //.button_fillSmall
+  &_fillSmall {
+    color: var(--main-text);
+    background: var(--main-btn);
+
+
+    &:active {
+      color: var(--main-text);
+      background: var(--main-btn);
+    }
+
+    &:hover {
+      color: var(--main-text);
+      background: var(--hover-btn);
+    }
+  }
+
+  //.button_outlineSmall
+  &_outlineSmall {
+    color: var(--main-text);
+    background: none;
+    border: 1px solid var(--main-btn);
+
+    &:active {
+      color: var(--main-text);
+    }
+
+    &:hover {
+      color: var(--main-text);
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  //.button_fillBig
+  &_fillBig {
+    width: 210px;
+    height: 54px;
+    background: var(--main-btn);
+
+    font-size: 24px;
+    text-transform: uppercase;
+
+    &:active {
+      color: var(--main-text);
+      background: var(--main-btn);
+    }
+
+    &:hover {
+      color: var(--main-text);
+      background: var(--hover-btn);
+    }
+  }
+
+  &:disabled:not(.button_loading) {
+    cursor: not-allowed !important;
+    opacity: 0.6;
+  }
+
+  //.button_loading
+  &_loading {
+    cursor: wait !important;
+    opacity: 0.6;
+
+    :global {
+      animation: pulse 2s infinite ease-in-out;
+    }
+  }
+}
+
