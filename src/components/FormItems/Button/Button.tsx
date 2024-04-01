@@ -3,14 +3,17 @@
 import {ButtonHTMLAttributes, useState} from 'react';
 import cn from 'classnames';
 import s from './button.module.scss'
+import Icon from "@components/Icon";
+import { IconsEnumKeys } from '@specs/icons';
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
-    variant?: 'fillSmall' | 'outlineSmall' | 'fillBig',
+    variant?: 'primary',
     onClick?: ((e: any) => any | Promise<any>),
+    icon?: IconsEnumKeys,
     loading?: boolean
 }
 
-const Button = ({variant = 'fillSmall', onClick, disabled, loading = false, type = 'button', children, ...props}: ButtonProps) => {
+const Button = ({variant = 'primary', onClick, icon, disabled, loading = false, type = 'button', children, ...props}: ButtonProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const clickHandler = async (e: any) => {
@@ -27,14 +30,13 @@ const Button = ({variant = 'fillSmall', onClick, disabled, loading = false, type
             className={cn(
                 props.className,
                 s.button,
-                variant === 'fillSmall' && s.button_fillSmall,
-                variant === 'outlineSmall' && s.button_outlineSmall,
-                variant === 'fillBig' && s.button_fillBig,
+                variant === 'primary' && s.button_primary,
                 (loading || isLoading) && s.button_loading,
             )}
             onClick={clickHandler}
             disabled={loading || isLoading || disabled}
         >
+            {icon && <div className={s.button_icon}><Icon name={icon} /></div>}
             {children}
         </button>
     )

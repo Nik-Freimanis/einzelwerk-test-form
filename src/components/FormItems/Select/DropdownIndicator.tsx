@@ -1,7 +1,10 @@
+'use client'
+
 import { components } from 'react-select';
-import Icon from '../../Sprites/Icon';
+import Icon from '@components/Icon';
 import React from 'react';
 
+// @ts-ignore
 export const DropdownIndicator = props => {
     return (
         components.DropdownIndicator && (

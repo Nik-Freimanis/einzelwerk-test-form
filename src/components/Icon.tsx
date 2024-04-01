@@ -1,5 +1,5 @@
 import {FC, SVGProps} from 'react';
-import {IconsEnumKeys} from '../specs/icons';
+import {IconsEnumKeys} from '@specs/icons';
 import cn from 'classnames';
 
 

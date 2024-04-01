@@ -1,7 +1,5 @@
-import React, { ChangeEvent, HTMLInputTypeAttribute, useState } from 'react';
-import cn from 'classnames';
-import s from './checkbox.module.scss';
-import Icon from '../../Sprites/Icon';
+import React, {ChangeEvent, HTMLInputTypeAttribute, useState} from 'react';
+import Icon from '@components/Icon';
 
 
 interface CheckboxProps {
@@ -9,45 +7,43 @@ interface CheckboxProps {
     name?: string
     type?: HTMLInputTypeAttribute
     label?: string
-    value?: string
     checked: boolean
-    onChange: (e: ChangeEvent<HTMLInputElement>) => Promise<void>
+    onChange: (checked: boolean) => void
 }
 
-const Checkbox = <T extends string>({name, type = 'checkbox', value, label, id, checked, onChange,}: CheckboxProps) => {
-    const [disabled,setDisabled] = useState(false);
+const Checkbox = ({name, type = 'checkbox', label, id, checked, onChange}: CheckboxProps) => {
 
-    const changeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-        if(disabled) return
-        setDisabled(true)
-        await onChange(e)
-        setDisabled(false)
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        onChange(event.target.checked);
     };
 
     return (
         <label
             tabIndex={0}
             htmlFor={id}
-            className={cn(
-                s.checkbox,
-                checked && s._active,
-                disabled && s._disabled,
-            )}
+            className={'flex flex-row gap-[16px] items-center cursor-pointer'}
         >
-            <span className={s.checkbox__indicator}>
-                {checked && <Icon name={'system-check'} width={18} height={18} color={'var(--new-light)'}/>}
-            </span>
+
+            {checked ?
+                <span
+                    className={'flex w-[24px] h-[24px] rounded-[8px] justify-center items-center border-[1px] border-solid border-blue-600'}>
+                    <Icon name={'system-check'} width={16} height={16}/>
+                </span>
+                :
+                <span
+                    className={'flex w-[24px] h-[24px] rounded-[8px] justify-center items-center border-[1px] border-solid border-gray-200'}>
+                </span>
+            }
             {label && (
-                <span className={s.checkbox__text}>{label}</span>
+                <span className={'text-[18px] text-grey-500 leading-[26px]'}>{label}</span>
             )}
             <input
                 type={type}
                 name={name}
                 checked={checked}
-                value={value}
                 id={id}
-                onChange={changeHandler}
-                className={s.checkbox__input}
+                className={'w-0 h-0 opacity-0 hidden'}
+                onChange={handleChange}
             />
         </label>
     );

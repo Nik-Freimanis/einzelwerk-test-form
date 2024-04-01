@@ -1,11 +1,13 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, {InputHTMLAttributes, SVGProps} from 'react';
 
 import s from './input.module.scss'
 import cn from 'classnames';
 
-import { IconsEnumKeys } from '../../../../specs/icons';
-import Icon from '../../Sprites/Icon';
+import { IconsEnumKeys } from '@specs/icons';
+import Icon from '@components/Icon';
 import { IIcon } from '@specs/helpers';
+
+
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     icon?: IIcon

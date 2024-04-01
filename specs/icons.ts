@@ -1,10 +1,9 @@
 export enum IconsEnum {
-    'none',
-    'dude',
-    'main-page',
-    'messages',
-    'friends',
-    'send'
+    'system-check',
+    'system-arrow-right',
+    'file',
+    'delete',
+    'plus'
 
 }
 

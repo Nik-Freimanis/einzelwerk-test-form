@@ -1,24 +1,26 @@
 @use "sass:math";
-@import "../../../styles/mixins";
-@import "../../../styles/variables";
 
 .inputBox {
     width: 100%;
     
-    border: 1px solid var(--new-main-elements);
+    border: 1px solid var(--grey-200);
     transition: border-color 0.3s ease 0s;
-    border-radius: 24px;
+    border-radius: 20px;
     display: flex;
     column-gap: 8px;
     padding: 5px 20px;
-    min-height: 48px;
+    min-height: 64px;
+    background: var(--grey-100);
 
     //.inputBox__input
     &__input {
         flex: 1 1 auto;
         width: 100%;
-        color: var(--new-main-elements);
+        background: inherit;
+        outline: none;
         transition: color 0.3s ease 0s;
+
+        color: #030712;
     }
 
     //.inputBox__icon

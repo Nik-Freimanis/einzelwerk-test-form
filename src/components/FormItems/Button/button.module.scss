@@ -1,81 +1,56 @@
 @use "sass:math";
-@use '../../../src/styles/variables' as *;
 
 .button {
   display: flex;
+
   border: none;
 
   justify-content: center;
   align-items: center;
   column-gap: 8px;
-  min-height: 48px;
+  min-height: 64px;
   min-width: 172px;
+  width: 100%;
 
-  font-family: $fontFamily;
   font-size: 18px;
-  font-weight: 700;
 
   cursor: pointer !important;
   transition: all 0.3s ease 0s;
 
-  border-radius: 24px;
+  border-radius: 35px;
 
-  z-index: 99;
+  &_icon {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
 
+    svg {
+      margin: auto;
+    }
+  }
 
 
   //.button_fillSmall
-  &_fillSmall {
-    color: var(--main-text);
-    background: var(--main-btn);
+  &_primary {
+    color: white;
+    background: var(--blue-600);
 
+    &_icon {
+      background: white;
+    }
 
     &:active {
-      color: var(--main-text);
-      background: var(--main-btn);
+      color: white;
+      background: var(--blue-500);
     }
 
     &:hover {
-      color: var(--main-text);
-      background: var(--hover-btn);
+      color: white;
+      background: var(--blue-500);
     }
   }
 
-  //.button_outlineSmall
-  &_outlineSmall {
-    color: var(--main-text);
-    background: none;
-    border: 1px solid var(--main-btn);
-
-    &:active {
-      color: var(--main-text);
-    }
-
-    &:hover {
-      color: var(--main-text);
-      background: rgba(255, 255, 255, 0.1);
-    }
-  }
-
-  //.button_fillBig
-  &_fillBig {
-    width: 210px;
-    height: 54px;
-    background: var(--main-btn);
-
-    font-size: 24px;
-    text-transform: uppercase;
-
-    &:active {
-      color: var(--main-text);
-      background: var(--main-btn);
-    }
-
-    &:hover {
-      color: var(--main-text);
-      background: var(--hover-btn);
-    }
-  }
 
   &:disabled:not(.button_loading) {
     cursor: not-allowed !important;
