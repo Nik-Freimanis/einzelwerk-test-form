@@ -15,6 +15,14 @@ interface File {
     type: string;
 }
 
+const options = [
+    { value: 'junior', label: 'Junior' },
+    { value: 'middle', label: 'Middle' },
+    { value: 'senior', label: 'Senior' },
+    { value: 'lead', label: 'Lead' },
+    { value: 'cto', label: 'CTO' },
+];
+
 export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
     const [isDragging, setIsDragging] = useState(false);
@@ -86,17 +94,17 @@ export default function Home() {
                         </div>
                         <div className={'flex flex-col gap-[24px]'}>
                             <div className={'flex flex-col gap-[16px]'}>
-                                <Input placeholder={'Name'}/>
+                                <Input placeholder={'Name'} required={true}/>
                                 <div className={'flex flex-row gap-[16px]'}>
-                                    <Input placeholder={'Phone'}/>
-                                    <Input placeholder={'E-mail'}/>
+                                    <Input placeholder={'Phone'} required={true}/>
+                                    <Input placeholder={'E-mail'} required={true}/>
                                 </div>
-                                <FormSelect/>
+                                <FormSelect options={options}/>
                                 <Input placeholder={'Name'}/>
                                 <div className={'flex flex-row gap-[16px]'}>
                                     <div className={'flex flex-col max-w-[310px] gap-[12px]'}>
                                         <h3 className={'font-medium text-grey-950'}>Dokument hochladen</h3>
-                                        <p className={'text-grey-400'}>Klicken Sie auf die Schaltfläche oder ziehen Sie
+                                        <p className={'text-grey-400 text-[12px]'}>Klicken Sie auf die Schaltfläche oder ziehen Sie
                                             ein
                                             Dokument im PDF-, DOCX-, PNG.</p>
                                         {files.length > 0 && (

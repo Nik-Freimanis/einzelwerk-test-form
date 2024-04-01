@@ -1,77 +1,89 @@
-'use client'
-
 import Select, { Props } from "react-select";
 
-const sampleOptions = [
-    {
-        label: "Finland",
-        options: [
-            {
-                label: "Great Hotel",
-                value: "Great Hotel",
-            },
-        ],
-    },
-    {
-        label: "Sweden",
-        options: [{ label: "Stockholm", value: "Stockholm" }],
-    },
-];
 
 
+export const FormSelect = ({ value, options, ...props }: Props) => {
 
-export const FormSelect = ({value, options = sampleOptions, ...props}: Props) => {
     return (
         <Select
             required={true}
             classNamePrefix="react-select"
             styles={{
-                menu: (base) => ({...base, zIndex: 2}),
-                control: (provided, state) => ({
+                menu: (provided, state) => ({
+                    ...provided,
+                    borderRadius: '20px',
+                    backgroundColor: 'var(--grey-100)',
+                }),
+                control: (provided) => ({
                     ...provided,
                     boxShadow: "none",
-                    border: "1px solid #E5E7EB",
+                    padding: "5px 20px",
+                    border: "1px solid var(--grey-200)",
                     borderRadius: "20px",
-                    backgroundColor: "#fff",
-                    color: "#000000",
-
+                    backgroundColor: "var(--grey-100)",
+                    color: "var(--grey-200)",
                     height: 64,
                     "&:hover": {
-                        border: "none"
+                        border: "1px solid var(--grey-200)",
                     },
                     "&:focus": {
-                        border: "none"
+                        border: "1px solid var(--grey-200)",
                     }
                 }),
-                container: (provided, state) => ({
+                container: (provided) => ({
                     ...provided,
                     borderWidth: 0,
-                    borderRadius: '20px'
+                    borderRadius: '20px',
+                }),
+                placeholder: (provided) => ({
+                    ...provided,
+                    color: 'var(--grey-400)'
+                }),
+                valueContainer: (provider) => ({
+                    ...provider,
+                    padding: 'none',
+                    "&:focused": {
+                        color: 'var(--grey-950)'
+                    }
                 }),
                 option: (provided, state) => ({
                     ...provided,
-                    color: state.isSelected ? "#000" : "#000",
-                    backgroundColor: state.isSelected ? "#F3F4F6" : "#fff",
+                    padding: '18px 24px',
+                    color: state.isSelected ? "var(--grey-950)" : "var(--grey-400)",
+                    backgroundColor: state.isSelected ? "var(--grey-100)" : "var(--grey-100)",
+                    borderRadius: '50px 50px 0 0',
                     cursor: "pointer",
                     transition: 'all 0.1s ease 0s',
+                    borderBottom: '1px solid var(--grey-200)',
                     "&:active": {
-                        backgroundColor: "#fff",
-                        color: "#000",
+                        color: "var(--grey-950)",
+                        backgroundColor: "var(--grey-100)",
                     },
                     "&:hover": {
-                        outline: "none"
+                        outline: "none",
+                        color: "var(--grey-700)",
                     },
+                    "&:last-child": {
+                        borderBottom: 'none',
+                        borderRadius: '0 0 50px 50px'
+                    }
                 }),
-                singleValue: (provided, state) => ({
+                singleValue: (provided) => ({
                     ...provided,
-                    color: '#000',
-                    backgroundColor: "none"
+                    color: 'var(--grey-950)',
+                    padding: 'none',
+                    backgroundColor: "none",
                 }),
-                input: (provided, state) => ({
+                indicatorSeparator: (provided) => ({
                     ...provided,
-                    color: '#829AB1',
-                    cursor: 'pointer'
-                })
+                    display: 'none'
+                }),
+                input: (provided) => ({
+                    ...provided,
+                    color: 'var(--grey-200)',
+                    padding: 'none',
+                    cursor: 'pointer',
+                }),
             }}
             placeholder={'Your skill'}
             isClearable={false}
