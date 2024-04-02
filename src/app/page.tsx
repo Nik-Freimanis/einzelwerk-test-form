@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import Input from "@components/FormItems/Input/Input";
 import { FormSelect } from "@components/FormItems/Select/Select";
 import Button from "@components/FormItems/Button/Button";
@@ -26,6 +27,7 @@ const options = [
 export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
     const [isDragging, setIsDragging] = useState(false);
+    const { control, handleSubmit } = useForm();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = event.target.files;
@@ -65,16 +67,18 @@ export default function Home() {
     };
 
     const [isChecked, setIsChecked] = useState(false);
-
-
     const handleChange = (checked: boolean) => {
         setIsChecked(checked);
     };
 
+    const onSubmit = (data: any) => {
+        console.log(data);
+    };
 
     return (
         <main className="flex min-h-screen items-center justify-center p-24">
             <form
+                onSubmit={handleSubmit(onSubmit)}
                 className={`m-auto flex min-w-[640px] w-[560px] min-h-[810px] bg-white rounded-[32px] ${isDragging ? 'border-dashed border-4 border-gray-400' : ''}`}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
@@ -94,13 +98,46 @@ export default function Home() {
                         </div>
                         <div className={'flex flex-col gap-[24px]'}>
                             <div className={'flex flex-col gap-[16px]'}>
-                                <Input placeholder={'Name'} required={true}/>
+                                <Controller
+                                    control={control}
+                                    name="name"
+                                    rules={{ required: true }}
+                                    render={({ field }) => (
+                                        <Input {...field} placeholder="Name" />
+                                    )}
+                                />
                                 <div className={'flex flex-row gap-[16px]'}>
-                                    <Input placeholder={'Phone'} required={true}/>
-                                    <Input placeholder={'E-mail'} required={true}/>
+                                    <Controller
+                                        control={control}
+                                        name="phone"
+                                        rules={{ required: true }}
+                                        render={({ field }) => (
+                                            <Input {...field} placeholder="Phone" />
+                                        )}
+                                    />
+                                    <Controller
+                                        control={control}
+                                        name="email"
+                                        rules={{ required: true }}
+                                        render={({ field }) => (
+                                            <Input {...field} placeholder="Email" />
+                                        )}
+                                    />
                                 </div>
-                                <FormSelect options={options}/>
-                                <Input placeholder={'Name'}/>
+                                <Controller
+                                    control={control}
+                                    name="skill"
+                                    render={({ field }) => (
+                                        <FormSelect {...field} options={options} />
+                                    )}
+                                />
+                                <Controller
+                                    control={control}
+                                    name="document"
+                                    render={({ field }) => (
+                                        <Input {...field} placeholder="Document" />
+                                    )}
+                                />
                                 <div className={'flex flex-row gap-[16px]'}>
                                     <div className={'flex flex-col max-w-[310px] gap-[12px]'}>
                                         <h3 className={'font-medium text-grey-950'}>Dokument hochladen</h3>
@@ -121,7 +158,7 @@ export default function Home() {
                                     </label>
                                     <input id="file-upload" type="file" accept=".pdf,.docx,.png"
                                            onChange={handleFileChange}
-                                           multiple className={'hidden'}/>
+                                           multiple className={'hidden'} />
                                 </div>
                             </div>
                             <div>
