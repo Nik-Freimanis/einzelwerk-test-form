@@ -97,6 +97,7 @@ export const FormSelect: React.FC<FormSelectProps & SelectProps> = forwardRef<HT
                 singleValue: (provided) => ({
                     ...provided,
                     color: 'var(--grey-950)',
+                    fontWeight: '500',
                     padding: 'none',
                     backgroundColor: "none",
                 }),
@@ -107,6 +108,7 @@ export const FormSelect: React.FC<FormSelectProps & SelectProps> = forwardRef<HT
                 input: (provided) => ({
                     ...provided,
                     color: 'var(--grey-200)',
+                    fontWeight: '500',
                     padding: 'none',
                     cursor: 'pointer',
                 }),

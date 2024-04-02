@@ -29,7 +29,7 @@ export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
     const [isDragging, setIsDragging] = useState(false);
     const [isUnsupportedFormat, setIsUnsupportedFormat] = useState(false);
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, formState: { errors } } = useForm();
 
     const selectKey = nanoid();
 
@@ -116,7 +116,10 @@ export default function Home() {
                                     name="name"
                                     rules={{ required: true }}
                                     render={({ field }) => (
-                                        <Input {...field} placeholder="Name" />
+                                        <div className={'flex flex-col gap-[4px] w-full'}>
+                                            <Input {...field} placeholder="Name" error={errors.name} />
+                                            {errors.name && <p className={'text-red-500'}>Name is required</p>}
+                                        </div>
                                     )}
                                 />
                                 <div className={'flex flex-row gap-[16px]'}>
@@ -125,15 +128,22 @@ export default function Home() {
                                         name="phone"
                                         rules={{ required: true }}
                                         render={({ field }) => (
-                                            <Input {...field} placeholder="Phone" />
+                                            <div className={'flex flex-col gap-[4px] w-full'}>
+                                                <Input {...field} placeholder="Phone" error={errors.phone}/>
+                                                {errors.phone && <p className={'text-red-500'}>Phone is required</p>}
+                                            </div>
                                         )}
                                     />
+
                                     <Controller
                                         control={control}
                                         name="email"
                                         rules={{ required: true }}
                                         render={({ field }) => (
-                                            <Input {...field} placeholder="Email" />
+                                            <div className={'flex flex-col gap-[4px] w-full'}>
+                                                <Input {...field} placeholder="E-mail" error={errors.email}/>
+                                                {errors.email && <p className={'text-red-500'}>E-mail is required</p>}
+                                            </div>
                                         )}
                                     />
                                 </div>

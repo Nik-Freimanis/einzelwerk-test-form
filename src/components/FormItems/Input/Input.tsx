@@ -13,18 +13,21 @@ import { IIcon } from '@specs/helpers';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     icon?: IIcon
-    iconPosition?: 'left' | 'right'
+    iconPosition?: 'left' | 'right',
+    error?: any,
     iconColor?: string
     boxClassName?: string
 }
 
 // eslint-disable-next-line react/display-name
-const Input = React.forwardRef<HTMLDivElement, InputProps>(({icon, iconColor, iconPosition = 'right', boxClassName, value = '', ...props}: InputProps, ref) => {
+const Input = React.forwardRef<HTMLDivElement, InputProps>(({icon, iconColor, iconPosition = 'right', boxClassName, value = '', error, ...props}: InputProps, ref) => {
     return (
         <div
             className={cn(
                 s.inputBox,
-                boxClassName
+                boxClassName, {
+                    '!border-red-500': error,
+                }
             )}>
             {icon && iconPosition === 'left' && (
                 <Icon className={cn(s.inputBox__icon)} {...icon} color={iconColor}/>
