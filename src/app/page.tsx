@@ -119,7 +119,8 @@ export default function Home() {
                                     rules={{ required: true }}
                                     render={({ field }) => (
                                         <div className={'flex flex-col gap-[4px] w-full'}>
-                                            <Input {...field} placeholder="Name" error={errors.name && <p className={'text-red-500'}>Name is required</p>} />
+                                            <Input {...field} placeholder="Name" error={errors.name} />
+                                            {errors.name && <p className={'text-red-500'}>Name is required</p>}
                                         </div>
                                     )}
                                 />
@@ -130,7 +131,8 @@ export default function Home() {
                                         rules={{ required: true }}
                                         render={({ field }) => (
                                             <div className={'flex flex-col gap-[4px] w-full'}>
-                                                <Input {...field} placeholder="Phone" error={errors.phone && <p className={'text-red-500'}>Phone is required</p>}/>
+                                                <Input {...field} placeholder="Phone" error={errors.phone}/>
+                                                {errors.phone && <p className={'text-red-500'}>Phone is required</p>}
                                             </div>
                                         )}
                                     />
@@ -141,7 +143,8 @@ export default function Home() {
                                         rules={{ required: true }}
                                         render={({ field }) => (
                                             <div className={'flex flex-col gap-[4px] w-full'}>
-                                                <Input {...field} placeholder="E-mail" error={errors.email && <p className={'text-red-500'}>E-mail is required</p>}/>
+                                                <Input {...field} placeholder="E-mail" error={errors.email}/>
+                                                {errors.email && <p className={'text-red-500'}>E-mail is required</p>}
                                             </div>
                                         )}
                                     />
