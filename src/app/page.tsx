@@ -31,8 +31,6 @@ export default function Home() {
     const [isUnsupportedFormat, setIsUnsupportedFormat] = useState(false);
     const { control, handleSubmit, formState: { errors } } = useForm();
 
-    const selectKey = nanoid();
-
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = event.target.files;
         if (selectedFiles) {
@@ -83,6 +81,8 @@ export default function Home() {
 
     const onSubmit = (data: any) => {
         console.log(data);
+        data.files = files;
+        setFiles([]);
     };
 
     return (
