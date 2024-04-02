@@ -77,14 +77,16 @@ export default function Home() {
         setFiles(newFiles);
     };
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = (data: any) => {
         try {
             const validatedData = schema.parse(data);
-            console.log(validatedData);
+            console.log('data', data);
+            data.files = files;
             setFiles([]);
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
+
     };
 
     return (
