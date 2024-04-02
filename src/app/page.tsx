@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, {useId, useState} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Input from "@components/FormItems/Input/Input";
 import Button from "@components/FormItems/Button/Button";
@@ -8,6 +8,8 @@ import FileItem from "@components/FormItems/FileItem";
 import Icon from "@components/Icon";
 import Checkbox from "@components/FormItems/Checkbox/Checkbox";
 import {FormSelect} from "@components/FormItems/Select/Select";
+import { nanoid } from "nanoid";
+
 
 interface File {
     name: string;
@@ -28,6 +30,8 @@ export default function Home() {
     const [isDragging, setIsDragging] = useState(false);
     const [isUnsupportedFormat, setIsUnsupportedFormat] = useState(false);
     const { control, handleSubmit } = useForm();
+
+    const selectKey = nanoid();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = event.target.files;
@@ -137,7 +141,7 @@ export default function Home() {
                                     control={control}
                                     name="skill"
                                     render={({ field }) => (
-                                        <FormSelect {...field} options={options} />
+                                        <FormSelect instanceId={useId()} placeholder={'Your skill'}  {...field} options={options} />
                                     )}
                                 />
                                 <div className={'flex flex-row gap-[16px]'}>
@@ -176,6 +180,7 @@ export default function Home() {
                                     render={({ field }) => (
                                         <Checkbox
                                             {...field}
+                                            // @ts-ignore
                                             checked={field.value === 'true'}
                                             label={'I’m agree with every data you collect'}
                                             value={field.value === 'true' ? 'true' : 'false'}

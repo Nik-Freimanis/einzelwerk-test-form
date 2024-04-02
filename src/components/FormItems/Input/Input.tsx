@@ -1,3 +1,5 @@
+'use client'
+
 import React, {InputHTMLAttributes, SVGProps} from 'react';
 
 import s from './input.module.scss'
@@ -17,7 +19,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 // eslint-disable-next-line react/display-name
-const Input = React.forwardRef<HTMLDivElement, InputProps>(({icon, iconColor, iconPosition = 'right', boxClassName, ...props}: InputProps, ref) => {
+const Input = React.forwardRef<HTMLDivElement, InputProps>(({icon, iconColor, iconPosition = 'right', boxClassName, value = '', ...props}: InputProps, ref) => {
     return (
         <div
             className={cn(
@@ -29,6 +31,7 @@ const Input = React.forwardRef<HTMLDivElement, InputProps>(({icon, iconColor, ic
             )}
             <input
                 {...props}
+                value={value}
                 className={s.inputBox__input}
             />
             {icon && iconPosition === 'right' && (

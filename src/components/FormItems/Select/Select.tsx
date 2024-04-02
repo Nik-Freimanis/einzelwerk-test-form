@@ -1,6 +1,8 @@
-import React from 'react';
-import Select, { Props as SelectProps } from "react-select";
+'use client'
 
+import React, {forwardRef, useEffect, useState} from 'react';
+import Select, { Props as SelectProps } from "react-select";
+import { nanoid } from 'nanoid';
 
 interface Option {
     value: string;
@@ -10,13 +12,26 @@ interface Option {
 interface FormSelectProps {
     value?: Option | null;
     options: Option[];
+    placeholder?: string;
 }
 
+export const FormSelect: React.FC<FormSelectProps & SelectProps> = forwardRef<HTMLSelectElement, FormSelectProps>(({ value, options, placeholder, ...props }, ref) => {
+    const [isMounted, setIsMounted] = useState(false);
+    const id = nanoid();
 
-export const FormSelect: React.FC<FormSelectProps> = ({ value, options, ...props }) => {
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null;
+    }
 
     return (
         <Select
+            // @ts-ignore
+            ref={ref}
+            id={id}
             required={true}
             classNamePrefix="react-select"
             styles={{
@@ -96,11 +111,11 @@ export const FormSelect: React.FC<FormSelectProps> = ({ value, options, ...props
                     cursor: 'pointer',
                 }),
             }}
-            placeholder={'Your skill'}
+            placeholder={placeholder}
             isClearable={false}
             isMulti={false}
             options={options}
             {...props}
         />
     );
-};
+});
