@@ -1,16 +1,14 @@
 'use client'
 
-import React, {useId, useState} from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Input from "@components/FormItems/Input/Input";
 import Button from "@components/FormItems/Button/Button";
 import FileItem from "@components/FormItems/FileItem";
 import Icon from "@components/Icon";
 import Checkbox from "@components/FormItems/Checkbox/Checkbox";
-import {FormSelect} from "@components/FormItems/Select/Select";
-import { nanoid } from "nanoid";
+import { FormSelect } from "@components/FormItems/Select/Select";
 import { z } from 'zod';
-
 
 interface File {
     name: string;
@@ -53,23 +51,13 @@ export default function Home() {
         }
     };
 
-    const handleDragEnter = (event: React.DragEvent<HTMLFormElement>) => {
+    const handleDrag = (event: React.DragEvent<HTMLFormElement>, isDragging: boolean) => {
         event.preventDefault();
-        setIsDragging(true);
-    };
-
-    const handleDragOver = (event: React.DragEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setIsDragging(true);
-    };
-
-    const handleDragLeave = () => {
-        setIsDragging(false);
+        setIsDragging(isDragging);
     };
 
     const handleDrop = (event: React.DragEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setIsDragging(false);
+        handleDrag(event, false);
 
         const droppedFiles = event.dataTransfer.files;
         if (droppedFiles) {
@@ -89,11 +77,6 @@ export default function Home() {
         setFiles(newFiles);
     };
 
-    const [isChecked, setIsChecked] = useState(false);
-    const handleChange = (checked: boolean) => {
-        setIsChecked(checked);
-    };
-
     const onSubmit = async (data: any) => {
         try {
             const validatedData = schema.parse(data);
@@ -109,9 +92,9 @@ export default function Home() {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className={'flex min-w-[640px] w-[560px] min-h-[732px] bg-white rounded-[32px]'}
-                onDragEnter={handleDragEnter}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
+                onDragEnter={(e) => handleDrag(e, true)}
+                onDragOver={(e) => handleDrag(e, true)}
+                onDragLeave={(e) => handleDrag(e, false)}
                 onDrop={handleDrop}
             >
                 {isDragging ? (
@@ -136,8 +119,7 @@ export default function Home() {
                                     rules={{ required: true }}
                                     render={({ field }) => (
                                         <div className={'flex flex-col gap-[4px] w-full'}>
-                                            <Input {...field} placeholder="Name" error={errors.name} />
-                                            {errors.name && <p className={'text-red-500'}>Name is required</p>}
+                                            <Input {...field} placeholder="Name" error={errors.name && <p className={'text-red-500'}>Name is required</p>} />
                                         </div>
                                     )}
                                 />
@@ -148,8 +130,7 @@ export default function Home() {
                                         rules={{ required: true }}
                                         render={({ field }) => (
                                             <div className={'flex flex-col gap-[4px] w-full'}>
-                                                <Input {...field} placeholder="Phone" error={errors.phone}/>
-                                                {errors.phone && <p className={'text-red-500'}>Phone is required</p>}
+                                                <Input {...field} placeholder="Phone" error={errors.phone && <p className={'text-red-500'}>Phone is required</p>}/>
                                             </div>
                                         )}
                                     />
@@ -160,8 +141,7 @@ export default function Home() {
                                         rules={{ required: true }}
                                         render={({ field }) => (
                                             <div className={'flex flex-col gap-[4px] w-full'}>
-                                                <Input {...field} placeholder="E-mail" error={errors.email}/>
-                                                {errors.email && <p className={'text-red-500'}>E-mail is required</p>}
+                                                <Input {...field} placeholder="E-mail" error={errors.email && <p className={'text-red-500'}>E-mail is required</p>}/>
                                             </div>
                                         )}
                                     />
@@ -170,20 +150,19 @@ export default function Home() {
                                     control={control}
                                     name="skill"
                                     render={({ field }) => (
-                                        <FormSelect instanceId={useId()} placeholder={'Your skill'}  {...field} options={options} />
+                                        <FormSelect placeholder={'Your skill'}  {...field} options={options} />
                                     )}
                                 />
                                 <div className={'flex flex-row gap-[16px]'}>
                                     <div className={'flex flex-col max-w-[310px] gap-[12px]'}>
                                         <h3 className={'font-medium text-grey-950'}>Dokument hochladen</h3>
                                         <p className={'text-grey-400 text-[12px]'}>Klicken Sie auf die Schaltfläche oder ziehen Sie
-                                            ein
-                                            Dokument im PDF-, DOCX-, PNG.</p>
+                                            ein Dokument im PDF-, DOCX-, PNG.</p>
                                         {files.length > 0 && (
                                             <div className={'flex max-w-[310px] gap-[8px] flex-wrap'}>
                                                 {files.map((file, index) => (
-                                                    <FileItem key={index} file={file} index={index}
-                                                              handleRemoveFile={handleRemoveFile}/>
+                                                    // @ts-ignore
+                                                    <FileItem key={index} file={file} index={index} handleRemoveFile={handleRemoveFile}/>
                                                 ))}
                                             </div>
                                         )}
