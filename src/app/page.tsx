@@ -9,6 +9,7 @@ import Icon from "@components/Icon";
 import Checkbox from "@components/FormItems/Checkbox/Checkbox";
 import {FormSelect} from "@components/FormItems/Select/Select";
 import { nanoid } from "nanoid";
+import { z } from 'zod';
 
 
 interface File {
@@ -24,6 +25,20 @@ const options = [
     { value: 'lead', label: 'Lead' },
     { value: 'cto', label: 'CTO' },
 ];
+
+const phoneRegex = new RegExp(
+    /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+);
+
+const schema = z.object({
+    name: z.string(),
+    phone: z.string().regex(phoneRegex, 'Invalid Number'),
+    email: z.string().email(),
+    skill: z.object({
+        value: z.string(),
+        label: z.string(),
+    }),
+});
 
 export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
@@ -79,10 +94,14 @@ export default function Home() {
         setIsChecked(checked);
     };
 
-    const onSubmit = (data: any) => {
-        console.log(data);
-        data.files = files;
-        setFiles([]);
+    const onSubmit = async (data: any) => {
+        try {
+            const validatedData = schema.parse(data);
+            console.log(validatedData);
+            setFiles([]);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
