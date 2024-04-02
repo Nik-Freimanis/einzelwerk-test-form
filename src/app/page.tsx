@@ -79,16 +79,20 @@ export default function Home() {
         <main className="flex min-h-screen items-center justify-center p-24">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className={`m-auto flex min-w-[640px] w-[560px] min-h-[810px] bg-white rounded-[32px] ${isDragging ? 'border-dashed border-4 border-gray-400' : ''}`}
+                className={`flex min-w-[640px] w-[560px] min-h-[810px] bg-white rounded-[32px] ${isDragging ? '' : ''}`}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
             >
                 {isDragging ? (
-                    <div className="m-[24px] flex items-center justify-center w-full h-full">
-                        <p className="text-gray-400 text-lg">Drop files here</p>
+                    <div className={'m-[40px] rounded-[24px] w-full p-[24px] border-dashed border-2 border-gray-400'}>
+                        <div className="flex flex-col gap-[16px] flex items-center justify-center w-full h-full">
+                            <span className="text-gray-950 text-[24px] font-medium">Drop files here</span>
+                            <p className="text-gray-700 text-[20px]">Put your files in this field</p>
+                        </div>
                     </div>
+
                 ) : (
                     <div className={'flex flex-col p-[40px] gap-[32px]'}>
                         <div className={'flex flex-col gap-[16px]'}>
