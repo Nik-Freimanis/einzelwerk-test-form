@@ -1,8 +1,19 @@
-import Select, { Props } from "react-select";
+import React from 'react';
+import Select, { Props as SelectProps } from "react-select";
 
 
+interface Option {
+    value: string;
+    label: string;
+}
 
-export const FormSelect = ({ value, options, ...props }: Props) => {
+interface FormSelectProps {
+    value?: Option | null;
+    options: Option[];
+}
+
+
+export const FormSelect: React.FC<FormSelectProps> = ({ value, options, ...props }) => {
 
     return (
         <Select
@@ -89,6 +100,7 @@ export const FormSelect = ({ value, options, ...props }: Props) => {
             isClearable={false}
             isMulti={false}
             options={options}
+            {...props}
         />
     );
 };

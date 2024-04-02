@@ -3,12 +3,11 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Input from "@components/FormItems/Input/Input";
-import { FormSelect } from "@components/FormItems/Select/Select";
 import Button from "@components/FormItems/Button/Button";
-
 import FileItem from "@components/FormItems/FileItem";
 import Icon from "@components/Icon";
 import Checkbox from "@components/FormItems/Checkbox/Checkbox";
+import {FormSelect} from "@components/FormItems/Select/Select";
 
 interface File {
     name: string;
@@ -99,7 +98,6 @@ export default function Home() {
                             <p className="text-gray-700 text-[20px]">Put your files in this field</p>
                         </div>
                     </div>
-
                 ) : (
                     <div className={'flex flex-col p-[40px] gap-[32px]'}>
                         <div className={'flex flex-col gap-[16px]'}>
