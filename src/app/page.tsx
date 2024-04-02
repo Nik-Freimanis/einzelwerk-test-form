@@ -27,6 +27,7 @@ const options = [
 export default function Home() {
     const [files, setFiles] = useState<File[]>([]);
     const [isDragging, setIsDragging] = useState(false);
+    const [isUnsupportedFormat, setIsUnsupportedFormat] = useState(false);
     const { control, handleSubmit } = useForm();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +57,13 @@ export default function Home() {
 
         const droppedFiles = event.dataTransfer.files;
         if (droppedFiles) {
-            setFiles(Array.from(droppedFiles));
+            const allowedFormats = ['.pdf', '.docx', '.png'];
+            const filteredFiles = Array.from(droppedFiles).filter(file => {
+                const extension = file.name.split('.').pop();
+                return allowedFormats.includes(`.${extension}`);
+            });
+            setFiles(filteredFiles);
+            setIsUnsupportedFormat(filteredFiles.length !== droppedFiles.length);
         }
     };
 
@@ -79,7 +86,7 @@ export default function Home() {
         <main className="flex min-h-screen items-center justify-center p-24">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className={`flex min-w-[640px] w-[560px] min-h-[810px] bg-white rounded-[32px] ${isDragging ? '' : ''}`}
+                className={'flex min-w-[640px] w-[560px] min-h-[732px] bg-white rounded-[32px]'}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -135,13 +142,6 @@ export default function Home() {
                                         <FormSelect {...field} options={options} />
                                     )}
                                 />
-                                <Controller
-                                    control={control}
-                                    name="document"
-                                    render={({ field }) => (
-                                        <Input {...field} placeholder="Document" />
-                                    )}
-                                />
                                 <div className={'flex flex-row gap-[16px]'}>
                                     <div className={'flex flex-col max-w-[310px] gap-[12px]'}>
                                         <h3 className={'font-medium text-grey-950'}>Dokument hochladen</h3>
@@ -158,7 +158,14 @@ export default function Home() {
                                         )}
                                     </div>
                                     <label htmlFor="file-upload" className={'cursor-pointer'}>
-                                        <Icon width={236} height={122} name={'plus'}/>
+                                        {isUnsupportedFormat ? (
+                                            <div className={'flex flex-col gap-[4px]'}>
+                                                <Icon width={236} height={122} name={'warning'}/>
+                                                <p className={'text-[16px] text-red-500'}>Unsupported file format</p>
+                                            </div>
+                                        ) : (
+                                            <Icon width={236} height={122} name={'plus'}/>
+                                        )}
                                     </label>
                                     <input id="file-upload" type="file" accept=".pdf,.docx,.png"
                                            onChange={handleFileChange}
@@ -166,10 +173,21 @@ export default function Home() {
                                 </div>
                             </div>
                             <div>
-                                <Checkbox
-                                    label="I’m agree with every data you collect"
-                                    checked={isChecked}
-                                    onChange={handleChange}
+                                <Controller
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Checkbox
+                                            {...field}
+                                            checked={field.value === 'true'}
+                                            label={'I’m agree with every data you collect'}
+                                            value={field.value === 'true' ? 'true' : 'false'}
+                                        />
+                                    )}
+                                    defaultValue={false}
+                                    name='checkbox'
+                                    rules={{
+                                        validate: (value: string) => value === 'true'
+                                    }}
                                 />
                             </div>
                             <div>

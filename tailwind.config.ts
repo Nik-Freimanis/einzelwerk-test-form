@@ -9,15 +9,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'jura': 'var(--jura)',
         'inter': 'var(--inter)',
-        'montserrat': 'var(--montserrat)',
-        'otomanopee': 'var(--otomanopee)'
       },
       colors: {
         'transparent-white': 'rgba(255, 255, 255, 0.4)',
-        'brand-gradient': 'linear-gradient(to right, #d9a7c7, #fffcdc)',
 
+        'red-500': '#FF2525',
         'blue-600': '#4F46E5',
         'grey-100': '#F3F4F6',
         'grey-200': '#E5E7EB',

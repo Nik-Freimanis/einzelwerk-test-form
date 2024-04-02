@@ -18,5 +18,10 @@
             <path d="M118 54V68M111 61H125" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
 
+        <symbol id="icon-warning" width="236" height="122" viewBox="0 0 236 122" fill="none">
+            <rect x="1" y="1" width="234" height="120" rx="20" stroke="#FF2525" stroke-linecap="round" stroke-dasharray="8 8"/>
+            <path d="M118 54V68M111 61H125" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+
     </defs>
 </svg>

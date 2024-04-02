@@ -3,7 +3,8 @@ export enum IconsEnum {
     'system-arrow-right',
     'file',
     'delete',
-    'plus'
+    'plus',
+    'warning'
 
 }
 
